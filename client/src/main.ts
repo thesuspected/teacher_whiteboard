@@ -6,6 +6,8 @@ import vuetify from './plugins/vuetify'
 import api from '@/plugins/axios'
 import VueSocketIO from 'vue-socket.io'
 import SocketIO from 'socket.io-client'
+import './config/fontawesome'
+import 'vue-slider-component/theme/default.css'
 
 Vue.prototype.$api = api // Импортируем Axios с заданным BaseUrl
 Vue.use(

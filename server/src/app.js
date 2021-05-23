@@ -9,6 +9,17 @@ var io = require("socket.io")(http, {
         credentials: true,
     },
 });
+// База данных
+const mongoose = require("mongoose");
+mongoose.connect("mongodb+srv://suspect:MVP4everSup126@mongocluster.prnlu.mongodb.net/whiteboard?retryWrites=true&w=majority", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+});
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "connection error:"));
+db.once("open", function (callback) {
+    console.log("Connection Succeeded");
+});
 
 app.use(morgan("combined"));
 // app.use(express.json());
@@ -32,4 +43,5 @@ io.on("connection", (socket) => {
     });
 });
 
-http.listen(process.env.PORT || 8081);
+// Прослушка сервера
+http.listen(8081);

@@ -2,6 +2,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { act } from './ref/actions'
+import whiteboardModule from './modules/whiteboard'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -28,5 +29,7 @@ export default new Vuex.Store({
             console.log('FUCK YOU BEEEAACH')
         },
     },
-    modules: {},
+    modules: {
+        whiteboardModule,
+    },
 })

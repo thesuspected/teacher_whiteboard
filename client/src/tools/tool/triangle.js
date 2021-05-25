@@ -29,6 +29,9 @@ function onMouseDrag(event) {
     )
     local.path.strokeColor = store.getters.shapeArgs.color
     local.path.strokeWidth = store.getters.shapeArgs.size
+    if (store.getters.shapeArgs.size > 49) {
+        local.path.fillColor = store.getters.shapeArgs.color
+    }
 }
 
 function onMouseUp() {

@@ -3,30 +3,39 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import { act } from './ref/actions'
 import whiteboardModule from './modules/whiteboard'
+import { MainState, Ctx } from './ref/types'
+import { loc } from './ref/locals'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-    state: {},
-    mutations: {
-        [act.SOCKET_USER_CONNECTED]: () => {
-            console.log('socket connect act')
+    state: {
+        me: {
+            _id: localStorage.getItem(loc.USER_ID) ? localStorage.getItem(loc.USER_ID) : '',
+            name: localStorage.getItem(loc.USER_NAME) ? localStorage.getItem(loc.USER_NAME) : '',
+            color: localStorage.getItem(loc.USER_COLOR) ? localStorage.getItem(loc.USER_COLOR) : '#FF9800',
+            canvas: '',
         },
-        fucku() {
-            console.log('FUCK YOU BEEEAACH')
+        currentBoard: {
+            _id: localStorage.getItem(loc.USER_LAST_BOARD_ID) ? localStorage.getItem(loc.USER_LAST_BOARD_ID) : '',
+            name: '',
+            description: '',
+            subject_id: 0, // Тематика
+            is_private: false,
+            mode: 0, // Режим отображения
+            password: '',
+            owner: {
+                name: '',
+                color: '',
+                canvas: '',
+            },
+            members: [],
         },
-    },
+        allBoards: [],
+    } as MainState,
+    mutations: {},
     actions: {
-        SOCKET_USER_CONNECTED() {
-            console.log('socket connect mut')
-        },
-        SOCKET_fucku() {
-            console.log('SOCKET_fucku')
-        },
-        [act.APP_CREATED]: () => {
-            console.log('app created')
-        },
-        fucku() {
-            console.log('FUCK YOU BEEEAACH')
+        ['SOCKET_' + act.ON_USER_CONNECTED]: (ctx: Ctx, id: string) => {
+            console.log('user connected', id)
         },
     },
     modules: {

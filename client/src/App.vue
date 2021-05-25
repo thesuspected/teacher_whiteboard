@@ -1,8 +1,10 @@
 <template>
     <v-app id="app">
-        <v-scroll-y-transition leave-absolute hide-on-leave>
-            <router-view />
-        </v-scroll-y-transition>
+        <div class="fill d-flex flex-column justify-center align-center bg-board">
+            <v-scroll-y-transition leave-absolute hide-on-leave>
+                <router-view />
+            </v-scroll-y-transition>
+        </div>
     </v-app>
 </template>
 

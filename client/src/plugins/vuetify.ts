@@ -15,12 +15,11 @@ export default new Vuetify({
         mobileBreakpoint: 'sm',
     },
     theme: {
-        dark: Boolean(localStorage.getItem(loc.CURR_USER_THEME) === 'true'),
         default: 'light',
         disable: false,
         themes: {
             light: {
-                primary: colors.teal.base,
+                primary: colors.orange.base,
                 secondary: '#424242',
                 accent: '#82B1FF',
                 error: '#FF5252',
@@ -29,7 +28,7 @@ export default new Vuetify({
                 warning: '#FB8C00',
             },
             dark: {
-                primary: colors.teal.base,
+                primary: colors.orange.base,
                 secondary: '#555',
                 accent: '#FF4081',
                 error: '#FF5252',

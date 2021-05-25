@@ -4,6 +4,7 @@
 
 <script lang="ts">
 import App from '@/App.vue'
+import { loc } from '@/store/ref/locals'
 import { Component } from 'vue-property-decorator'
 import WhiteBoardComponent from '../components/WhiteBoard.vue'
 
@@ -15,6 +16,9 @@ import WhiteBoardComponent from '../components/WhiteBoard.vue'
 export default class WhiteBoard extends App {
     // Создание страницы
     protected created() {
+        if (!localStorage.getItem(loc.USER_ID)) {
+            this.$router.push('/profile')
+        }
         this.subscribes()
     }
 

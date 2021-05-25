@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 import Home from '../views/Home.vue'
 import NewBoard from '../views/NewBoard.vue'
+import AllBoards from '../views/AllBoards.vue'
+import Profile from '../views/Profile.vue'
 import Whiteboard from '../views/Whiteboard.vue'
 
 Vue.use(VueRouter)
@@ -14,8 +16,18 @@ const routes: Array<RouteConfig> = [
     },
     {
         path: '/newBoard',
-        name: 'newBoard',
+        name: 'NewBoard',
         component: NewBoard,
+    },
+    {
+        path: '/allBoards',
+        name: 'AllBoards',
+        component: AllBoards,
+    },
+    {
+        path: '/profile',
+        name: 'Profile',
+        component: Profile,
     },
     {
         path: '/whiteboard',

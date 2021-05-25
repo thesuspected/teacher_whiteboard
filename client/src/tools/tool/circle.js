@@ -15,6 +15,7 @@ function onMouseDown(event) {
         center: event.point,
         strokeColor: store.getters.shapeArgs.color,
         strokeWidth: store.getters.shapeArgs.size,
+        fillColor: store.getters.shapeArgs.size > 49 ? store.getters.shapeArgs.color : '#00000000',
     })
     layer.addChild(local.path)
     local.center = event.point

@@ -22,7 +22,9 @@ function onMouseDrag(event) {
     local.path = new paper.Shape.Rectangle(local.center, event.point)
     local.path.strokeColor = store.getters.shapeArgs.color
     local.path.strokeWidth = store.getters.shapeArgs.size
-    local.path.fillColor = store.getters.shapeArgs.color
+    if (store.getters.shapeArgs.size > 49) {
+        local.path.fillColor = store.getters.shapeArgs.color
+    }
 }
 
 function onMouseUp(event) {

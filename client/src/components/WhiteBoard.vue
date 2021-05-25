@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="fill">
         <canvas id="whiteboard" resize></canvas>
         <mainPanel></mainPanel>
         <historyPanel></historyPanel>
@@ -29,8 +29,9 @@ export default {
     },
     methods: {
         keyupHandler(event) {
-            console.log(event)
             if (event.ctrlKey && event.shiftKey && event.code === 'KeyZ') {
+                // paper.project.exportSVG()
+                // paper.project.importSVG(svg)
                 history.redo()
             } else if (event.ctrlKey && event.code === 'KeyZ') {
                 history.undo()

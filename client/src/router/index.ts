@@ -5,6 +5,10 @@ import NewBoard from '../views/NewBoard.vue'
 import AllBoards from '../views/AllBoards.vue'
 import Profile from '../views/Profile.vue'
 import Whiteboard from '../views/Whiteboard.vue'
+// Доска
+import Draw from '../views/Board/Draw.vue'
+import Members from '../views/Board/Members.vue'
+import Settings from '../views/Board/Settings.vue'
 
 Vue.use(VueRouter)
 
@@ -31,8 +35,28 @@ const routes: Array<RouteConfig> = [
     },
     {
         path: '/whiteboard',
-        name: 'Whiteboard',
         component: Whiteboard,
+        children: [
+            {
+                path: '/',
+                redirect: 'draw',
+            },
+            {
+                path: 'draw',
+                name: 'Draw',
+                component: Draw,
+            },
+            {
+                path: 'members',
+                name: 'Members',
+                component: Members,
+            },
+            {
+                path: 'settings',
+                name: 'Settings',
+                component: Settings,
+            },
+        ],
     },
 ]
 

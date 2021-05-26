@@ -110,6 +110,7 @@ export default class Profile extends App {
     // Создание пользователя
     protected addUser() {
         if (this.mainState.me.name != '') {
+            console.log(this.mainState.me)
             this.$socket.emit(act.EMIT_ADD_USER, this.mainState.me, (res: { id: string }) => {
                 this.editLocalStorage(res.id)
                 this.$router.push('/')
@@ -133,6 +134,7 @@ export default class Profile extends App {
         localStorage.setItem(loc.USER_ID, id)
         localStorage.setItem(loc.USER_NAME, this.mainState.me.name)
         localStorage.setItem(loc.USER_COLOR, this.mainState.me.color)
+        this.mainState.me._id = id
     }
 
     // Подписки на события

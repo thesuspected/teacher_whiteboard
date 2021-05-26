@@ -14,7 +14,6 @@ const boardScheme = new Schema({
     description: String, // Краткое описание
     subject_id: Number, // Тематика
     is_private: Boolean, // Приватня ли доска?
-    mode: Number, // Режим отображения
     password: String, // Пароль
     owner: { type: Schema.Types.ObjectId, ref: "User" }, // Владелец
     members: [{ type: Schema.Types.ObjectId, ref: "User" }], // Участники

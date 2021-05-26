@@ -13,7 +13,7 @@ export default new Vuex.Store({
             _id: localStorage.getItem(loc.USER_ID) ? localStorage.getItem(loc.USER_ID) : '',
             name: localStorage.getItem(loc.USER_NAME) ? localStorage.getItem(loc.USER_NAME) : '',
             color: localStorage.getItem(loc.USER_COLOR) ? localStorage.getItem(loc.USER_COLOR) : '#FF9800',
-            canvas: '',
+            canvas: localStorage.getItem(loc.USER_CANVAS) ? localStorage.getItem(loc.USER_CANVAS) : '',
         },
         currentBoard: {
             _id: localStorage.getItem(loc.USER_LAST_BOARD_ID) ? localStorage.getItem(loc.USER_LAST_BOARD_ID) : '',
@@ -21,7 +21,6 @@ export default new Vuex.Store({
             description: '',
             subject_id: 0, // Тематика
             is_private: false,
-            mode: 0, // Режим отображения
             password: '',
             owner: {
                 name: '',

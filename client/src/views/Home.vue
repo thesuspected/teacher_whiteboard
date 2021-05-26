@@ -4,7 +4,6 @@
         <div class="d-flex align-center mb-2 mt-n7">
             <h1 class="white--text ma-0 fs-main mr-4">ChalkBoard</h1>
             <v-chip
-                value="Артём"
                 :color="mainState.me.color"
                 class="fs-sub pa-4"
                 @click="$router.push('/profile')"

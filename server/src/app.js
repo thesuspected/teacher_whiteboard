@@ -39,6 +39,17 @@ io.on("connection", (socket) => {
         });
     });
 
+    // Получение всех пользователей
+    socket.on(act.EMIT_GET_ALL_USER, (search, callback) => {
+        let User = mongoose.model("User", schema.user);
+
+        User.find(search, null, { sort: { _id: -1 } }, function (err, users) {
+            if (err) throw err;
+
+            callback(users);
+        });
+    });
+
     // Изменение пользователя
     socket.on(act.EMIT_EDIT_USER, (user, callback) => {
         let User = mongoose.model("User", schema.user);
@@ -58,6 +69,7 @@ io.on("connection", (socket) => {
                     if (err) throw err;
                     console.log(`User ${editUser._id} successfully edited.`);
 
+                    socket.broadcast.emit(act.ON_EDIT_USER, result);
                     callback();
                 });
             } else {
@@ -81,7 +93,6 @@ io.on("connection", (socket) => {
             description: board.description,
             subject_id: board.subject_id,
             is_private: board.is_private,
-            mode: board.mode,
             password: board.password,
             owner: mongoose.Types.ObjectId(board.owner._id), // Владелец
             members: [], // Участники
@@ -105,37 +116,58 @@ io.on("connection", (socket) => {
         });
     });
 
+    // Изменение доски
+    socket.on(act.EMIT_EDIT_BOARD, (board, callback) => {
+        let Board = mongoose.model("Board", schema.board);
+
+        let editBoard = new Board({
+            _id: board._id,
+            name: board.name,
+            description: board.description,
+            subject_id: board.subject_id,
+            is_private: board.is_private,
+            password: board.password,
+            owner: board.owner, // Владелец
+            members: board.members, // Участники
+        });
+
+        Board.findById(editBoard._id, function (err, doc) {
+            if (err) throw err;
+
+            if (doc) {
+                Board.updateOne({ _id: doc.id }, editBoard, function (err, result) {
+                    if (err) throw err;
+                    console.log(`Board ${editBoard._id} successfully edited.`);
+
+                    socket.broadcast.emit(act.ON_EDIT_USER, result);
+                    callback();
+                });
+            } else {
+                editBoard.save(function (err) {
+                    if (err) throw err;
+                    console.log(`Board ${editBoard._id} successfully saved.`);
+
+                    callback();
+                });
+            }
+        });
+    });
+
     // Получение всех досок
     socket.on(act.EMIT_GET_ALL_BOARD, (search, callback) => {
         let Board = mongoose.model("Board", schema.board);
+        let User = mongoose.model("User", schema.user);
 
-        Board.find(search, null, { sort: { _id: -1 } }, function (err, boards) {
-            if (err) throw err;
-
-            let User = mongoose.model("User", schema.user);
-
-            var arrayOfPromises = boards.map(function (row) {
-                // Заполняем владельца
-                return User.findById(row.owner, function (err, doc) {
-                    if (err) throw err;
-
-                    row.owner = doc;
-                }).then(() => {
-                    // Заполняем участников
-                    var innerArray = row.members.map(function (member) {
-                        User.findById(member, function (err, doc) {
-                            if (err) throw err;
-
-                            member = doc;
-                        });
-                    });
-                    return Promise.all(innerArray);
-                });
-            });
-            Promise.all(arrayOfPromises).then(() => {
+        Board.find(search, null, { sort: { _id: -1 } })
+            .populate({ path: "owner", model: User })
+            .populate({ path: "members", model: User })
+            .then(function (boards) {
                 callback(boards);
+            })
+            .catch((err) => {
+                console.log(err);
+                callback([]);
             });
-        });
     });
 });
 

@@ -18,7 +18,6 @@ export interface Board {
     description: string // Краткое описание
     subject_id: number // Тематика
     is_private: boolean // Приватная ли доска?
-    mode: number // Режим отображения
     password: string // Пароль
     owner: User // Владелец
     members: User[] // Участники

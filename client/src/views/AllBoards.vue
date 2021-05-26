@@ -30,7 +30,7 @@
                 @click="
                     item.password != ''
                         ? [(passwordDialog.overlay = true), (passwordDialog.board = item)]
-                        : $router.push(`/whiteboard?id=${item._id}`)
+                        : [localStorage.setItem(loc.USER_LAST_BOARD_ID, item._id), $router.push(`/whiteboard`)]
                 "
             >
                 <v-list-item-icon class="mr-3">
@@ -117,6 +117,8 @@ export default class AllBoards extends App {
     // Хранилище состояния
     protected mainState!: MainState
     protected boardThemes = boardThemes
+    protected localStorage = localStorage
+    protected loc = loc
     protected search = ''
     protected loading = true
     protected passwordDialog = {
@@ -166,6 +168,7 @@ export default class AllBoards extends App {
                 // localStorage.setItem(loc.USER_LAST_BOARD_ID, res.id)
                 // localStorage.setItem(loc.USER_LAST_BOARD_ROLE, 'owner')
                 this.mainState.allBoards = boards
+                console.log(boards)
                 this.loading = false
             }
         )
